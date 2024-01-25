@@ -1,0 +1,33 @@
+You will find a text file called 200k.txt with sample search strings here:
+https://www.dropbox.com/s/vx9bvgx3scl5qn4/200k.txt?dl=0
+Specification
+1. Write a server script that binds a port and responds to connections (an unlimited amount of concurrent
+connections),
+2. Receives "String" in the connection in clear text,
+3. The path to find the file comes from the configuration file. The configuration file can have a large number
+of elements that are not relevant to your server script. The line with the path in it will start with
+“linuxpath=” and will have the path after it, for example “linuxpath=/root/200k.txt”.
+4. Opens the file can be found in the path,
+5. Checks whether "String" exists in the file, considering that the file in the path COULD change every few
+microseconds, so you do need to re-read the contents of it on every query. This option should be configured
+by a REREAD_ON_QUERY flag.
+6. The maximum payload size is 1024 bytes. The server strips any \x00 characters from the end of the payload
+it receives,
+7. Responds on the TCP port saying "STRING EXISTS" or "STRING NOT FOUND" (with a newline
+character at the end).
+8. Uses multithreading to accept a large amount of requests in parallel,
+9. The script will work on linux and needs to work with files up to 250,000 rows, with an average of 40
+millisecond execution time per file in case REREAD_ON_QUERY is TRUE, and 0.5 ms if it’s FALSE.
+10. On the TCP output, also show the “logs” including the search query, the requesting IP, the measured
+execution time, timestamps etc., marked as “DEBUG: “,
+11. You are allowed to use native Linux scripts to execute the task (wrapped in python), core python, or any
+libraries. Since speed is a critical part of the specification, do some research and write a small report on the
+speeds of the different options benchmarked against each other. Deploy the code with the fastest option.
+12. The code needs to run as a linux daemon or service, with clear installation instructions,
+13. The code needs to be protected from attackers. Please handle your buffer overflows and other potential
+security issues,
+14. The code needs to be PEP8 and PEP20 compliant, docstring'd and documented on delivery, neatly and
+professionally packaged.
+15. Robust exception handling and error messages are required, covered with Unit tests for:
+A. Showing different execution times for different file sizes from 10,000 to 1,000,000 with a client
+you write for testing purposes
