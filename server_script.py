@@ -7,6 +7,11 @@ The server file will do the following:
 5. Location of file is given in configuration file
 6. Config file can be ini or yaml file type
 7. The config file is necesary to avoid hardcoded data that have to be loaded at start of program
+8. I have used an ini file which is creatd by the code file create-config.py
+9. Another file to update the config file is update-config.py
+10. I have used try-except-else-finally block to handle errors
+11. Multithreading will be added subsequently
+13. The program is run in a linux environment
 """
 from configparser import ConfigParser
 import socket

@@ -1,3 +1,12 @@
+"""
+The client file will do the following:
+1. Binds and port and sends off request to the server
+2. Connections must be unlimited number of concurrent connections
+3. Client must handle errors gracefully using try-except-else-finally
+4. Multi-threading will be added to allow multiple simultaneous connections
+5. The program is run in a linux environment and developed as such
+"""
+
 from configparser import ConfigParser
 import socket
 
@@ -75,7 +84,9 @@ class ClientScript:
                 print(f"Received: {response}")
         except ServerDetailsNotFoundError as sdnf_error:
             print(sdnf_error)
-        except ConnectionResetError:
+        except ConnectionResetError:  
+            # adding this helped to prevent error output after text was found
+            # I found this error displayed after execution had ended
             print("Connection has been reset by Server")
         else:
             pass
