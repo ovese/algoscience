@@ -16,6 +16,12 @@ config_object["SERVERCONFIG"] = {
     "ipaddr": "127.0.0.1"
 }
 
+config_object["CLIENTCONFIG"] = {
+    "host": "localhost",
+    "port": "8000",
+    "ipaddr": "127.0.0.1"
+}
+
 # I have added a 3rd section called FILELOCATION
 config_object["FILELOCATION"] = {
     "linuxpath": "./200k.txt",

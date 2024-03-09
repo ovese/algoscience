@@ -11,7 +11,7 @@ The server file will do the following:
 9. Another file to update the config file is update-config.py
 10. I have used try-except-else-finally block to handle errors
 11. Multithreading will be added subsequently
-13. The program is run in a linux environment
+13. The program is run in a linux environment and developed as such
 """
 from configparser import ConfigParser
 import socket
@@ -64,7 +64,7 @@ class ServerScript:
                     if not data_file:
                         print("File cant be read")
                     else:
-                        print("File opened and wil be read")
+                        print("File opened and will be read")
                         data_from_file = data_file.read().split("\n")
                         # the line above automatically creates a list from the data_file read
             except FileNotFoundError:
@@ -107,6 +107,7 @@ class ServerScript:
         1. establish the server param details from config file
         2. 
         """
+        search_result = ""  # returns found or not found
         # load some para,ms from config file
         [server_ip, port_num, file_path] = self.read_config()
         # create or instantiate a socket object
@@ -116,7 +117,7 @@ class ServerScript:
         port_num = int(port_num)
         server.bind((server_ip, port_num)) # this takes an integer as port number
         
-        # listen for incoming connections
+        # listen for incoming connections from client
         server.listen(0)
         print(f"Listening on {server_ip}:{port_num}")
         
@@ -155,7 +156,8 @@ class ServerScript:
                     break
                 else:
                     if counter == len(ret_file_data):
-                        print(f"At line {counter} Text {request} NOT FOUND")
+                        # text not found on any line
+                        print(f"Text {request} NOT FOUND")
                         break 
                     #break
                     # see the location of the break command above
@@ -182,7 +184,7 @@ class ServerScript:
         self.establish_conn_server()
         
 if __name__ == "__main__":
-    my_server = ServerScript(" ") # creating inst ance of server
+    my_server = ServerScript(" ") # creating instance of server
     my_server.main_server()
 
     
