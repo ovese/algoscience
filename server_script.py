@@ -182,7 +182,8 @@ class ServerScript:
         #print(ret_file_data)
         #print(ret_file_data_list)
         
-        self.establish_conn_server()
+        ret_verdict = self.establish_conn_server()
+        print(f"{ret_verdict}")
         
 if __name__ == "__main__":
     my_server = ServerScript(" ") # creating instance of server
