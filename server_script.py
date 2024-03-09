@@ -152,16 +152,15 @@ class ServerScript:
                 [counter, verdict] = self.match_text(request, ret_file_data)
                 # use returned boolean to print verdict
                 if verdict == True:
-                    print(f"At line {counter} Text {request} FOUND")
+                    search_result = f"At line {counter} Text {request} FOUND"
                     break
-                else:
-                    if counter == len(ret_file_data):
-                        # text not found on any line
-                        print(f"Text {request} NOT FOUND")
-                        break 
-                    #break
-                    # see the location of the break command above
-                    # i discovered any one works just as fine       
+                elif verdict == False and counter == len(ret_file_data):
+                    # text not found on any line
+                    search_result = f"Text {request} NOT FOUND"
+                    break 
+                #break
+                # see the location of the break command above
+                # i discovered any one works just as fine       
         
         # freeing resources
         # close connection socket with the client
@@ -169,6 +168,8 @@ class ServerScript:
         print("Connection to client closed")
         # close server socket
         server.close()
+        
+        return search_result  # must I have this here
         
         
     def main_server(self):
