@@ -104,4 +104,4 @@ class ClientScript:
 
 if __name__ == "__main__":
     my_client = ClientScript() # creating instance of client
-    my_client.main_client()
+    my_client.main_client()  # calls main client to execute code
