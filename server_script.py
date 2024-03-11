@@ -62,7 +62,7 @@ class ServerScript:
                 # filename = os.path.basename(path_to_file)
                 with open(path_to_file, "r") as data_file:
                     if not data_file:
-                        print("File cant be read")
+                        print("File cannot be read")
                     else:
                         print("File opened and will be read")
                         data_from_file = data_file.read().split("\n")
@@ -90,11 +90,9 @@ class ServerScript:
         target_str = str_to_match
         for item in range(len(list_to_search)):
             if list_to_search[item] == target_str:
-                # print("Text FOUND")
                 matched = True
                 break
             else:
-                # print("Text NOT FOUND")
                 matched = False
             count += 1
                 
