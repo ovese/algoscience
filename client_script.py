@@ -9,6 +9,7 @@ The client file will do the following:
 
 from configparser import ConfigParser
 import socket
+import threading
 
 class ServerDetailsNotFoundError(Exception):
     pass
@@ -51,7 +52,7 @@ class ClientScript:
         return (my_ip, my_port)
 
 
-    def run_client(self):
+    def run_client(self, target_str):
         # create a socket object
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -70,7 +71,7 @@ class ClientScript:
                 # input message and send it to the server
                 # message is a string of characters like  19;0;23;26;0;19;3;0;
                 # msg = input("Enter message: ")
-                msg = "24;0;1;11;0;8;3;0;" # in what format is this text e.g. byte, string, 
+                msg = target_str
                 client.send(msg.encode("utf-8")[:1024])
 
                 # receive message from the server
@@ -97,9 +98,27 @@ class ClientScript:
         
         
     def main_client(self):
-
+        #
+        # in what format is this text e.g. byte, string,
+        target_str1 = "24;0;1;11;0;8;3;0;"
+        target_str2 = "9;0;1;11;0;13;4;0;"
         print("----------Inside the client script----------")
-        self.run_client()  
+        try:
+            # self.run_client(target_str1)
+            t1 = threading.Thread(target=self.run_client, args=(target_str1,))
+            t2 = threading.Thread(target=self.run_client, args=(target_str2,))
+            
+            t1.start()
+            # can i put some delay in here between both threads running
+            t2.start()
+        
+            t1.join()
+            t2.join()
+        except ValueError as ve:
+            print(ve.what())
+        else:
+            print("All threads are done running!!!")
+        
 
 
 if __name__ == "__main__":
